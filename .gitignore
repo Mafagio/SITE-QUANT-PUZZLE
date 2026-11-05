@@ -10,6 +10,12 @@ node_modules/
 *.swo
 *~
 .cache/
+__pycache__/
+*.py[cod]
+
+# Generated screenshots, videos, reports, backups and local review notes
+/artifacts/
+/reviews/
 
 # Personal files and secrets
 /PERSO/

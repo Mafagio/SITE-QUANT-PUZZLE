@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Une promenade londonienne dessinée en Canvas 2D, des monuments aux docks.">
+  <title>Londres au fil de l’eau — Pixel World Lab</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./src/london/london.css">
+</head>
+<body>
+  <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+    <symbol id="i-grid" viewBox="0 0 24 24"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z"/></symbol>
+    <symbol id="i-left" viewBox="0 0 24 24"><path d="m14 6-6 6 6 6M8 12h12"/></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><path d="m10 6 6 6-6 6M4 12h12"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 5 11 7-11 7z"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 10V4m0 0h6M4 4l6 6a7 7 0 1 1-3 7"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/></symbol>
+    <symbol id="i-compare" viewBox="0 0 24 24"><path d="M12 2v20M8 5H3v14h5M16 5h5v14h-5"/></symbol>
+  </defs></svg>
+  <header class="masthead"><a href="./london-code-demo.html" class="brand"><svg><use href="#i-grid"/></svg>Pixel World Lab</a><span>Étude de paysage · Londres</span><a class="canal-link" href="./canal-code-demo.html">Voir le canal <span aria-hidden="true">↗</span></a></header>
+  <main>
+    <div class="introduction"><h1>Londres, au fil de l’eau.</h1><p>Les pierres prennent la lumière.<br>La ville s’étire, la Tamise respire.</p></div>
+    <section class="lab" aria-label="Promenade londonienne interactive">
+      <div class="scene-bar"><div><span class="signal" aria-hidden="true"></span><strong id="district">Westminster & Tower Bridge</strong><span class="hour">Heure dorée</span></div><button id="compare" class="text-button" aria-expanded="false" aria-controls="comparison"><svg><use href="#i-compare"/></svg>Référence</button></div>
+      <div class="viewport"><canvas id="london" width="1536" height="1024" tabindex="0" aria-label="Londres en pixel art. Flèches gauche et droite pour marcher, espace pour figer, R pour revenir au départ."></canvas><div id="loading" class="loading" role="status">Dessin des premières pierres…</div></div>
+      <div class="transport">
+        <div class="movement" role="group" aria-label="Déplacement"><button id="left" class="square" aria-label="Marcher vers la gauche"><svg><use href="#i-left"/></svg></button><button id="auto" class="primary" aria-pressed="false"><svg><use href="#i-play"/></svg><span>Marche auto</span></button><button id="right" class="square" aria-label="Marcher vers la droite"><svg><use href="#i-right"/></svg></button></div>
+        <div class="secondary-controls"><button id="pause" aria-pressed="false"><svg><use href="#i-pause"/></svg><span>Pause</span></button><button id="reset" class="square" aria-label="Retour au départ"><svg><use href="#i-home"/></svg></button><button id="capture" class="square" aria-label="Enregistrer une capture PNG"><svg><use href="#i-download"/></svg></button></div>
+        <output id="position" for="travel">0 m</output>
+      </div>
+      <div class="speed-control"><label for="speed">Vitesse du personnage</label><input id="speed" type="range" min="0.25" max="3" step="0.25" value="1"><output id="speed-value" for="speed">1×</output><div class="speed-presets" role="group" aria-label="Vitesses rapides"><button data-speed="0.5" aria-pressed="false">0,5×</button><button data-speed="1" aria-pressed="true">1×</button><button data-speed="2" aria-pressed="false">2×</button></div></div>
+      <div id="journey-panel" class="journey-panel" hidden><p id="journey-status" role="status" aria-live="polite"></p><button id="board" hidden>Embarquer</button><button id="replay" hidden>Rejouer le trajet</button></div>
+      <div class="exploration"><label for="travel">Explorer la rive</label><input id="travel" type="range" min="0" max="4608" value="0" step="1"><span id="progress">Départ</span></div>
+      <nav class="chapters" aria-label="Étapes du parcours"><button data-camera="0" aria-current="location">Monuments</button><button data-camera="1700">Entrepôts</button><button data-camera="2700">Grue & docks</button><button data-camera="4608">Terminal</button></nav>
+    </section>
+    <section id="comparison" class="comparison" hidden aria-label="Comparaison artistique"><div class="comparison-caption"><h2>Le cadrage de référence</h2><p id="reference-caption">frame01 · Monuments — dessin cible, non utilisé dans le décor.</p></div><img id="reference-image" alt="Référence pixel art de Tower Bridge, Westminster et Elizabeth Tower au coucher du soleil." width="1536" height="1024"></section>
+    <div class="below"><p><kbd>←</kbd> <kbd>→</kbd> marcher <span>·</span> <kbd>Espace</kbd> tout figer <span>·</span> <kbd>R</kbd> recommencer</p><p id="motion-note">Départ à l’arrêt. À vous de prendre la rive.</p></div>
+    <footer><p>Dessiné en code, pierre après pierre.</p><span>Canvas 2D · 1536 × 1024 · graine fixe</span><details><summary>Mesures du rendu</summary><pre id="statistics">Préparation…</pre></details></footer>
+    <p id="error" role="alert" hidden></p><p id="notice" class="sr-only" aria-live="polite"></p>
+  </main>
+  <script type="module" src="./src/london/main.js"></script>
+</body>
+</html>
